@@ -6,6 +6,13 @@
 # Importing Flask and required extensions
 from flask import Flask
 from .routes import bp
+from pymongo import MongoClient
+
+# Creating the Mongo Object
+client = MongoClient('mongodb+srv://admin:Proyecto123@pbooki.6x0msli.mongodb.net/')
+
+# Creating the connection to the BD
+db = client.ibookdb
 
 def create_app():
     # Creating the Flask application instance
