@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>iBookify - Libro</title>
+  <link rel="stylesheet" href="../static/css/app-styles.css" />
+  <script src="https://kit.fontawesome.com/e0f1625396.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="book-body">
+  <div class="blurbg"></div>
+  <div class="header-container">
+    {% block header %} {%include'header.html' %} {% endblock %}
+  </div>
+
+  <!-- Detalles del libro-->
+  {% block book %} {% if book %}
+  <!-- Ventanas modales -->
+  {% block editModal %} {% include 'edit-book.html' %} {% endblock %}
+  {% block modal %} {% include'reserve-book.html' %} {% endblock %}
+  <div class="book-details-container">
+    <div class="book-container-bg">
+      <div class="bookImage">
+        <img src="{{ book.imagen_Url }}" alt="Imagen del Libro" />
+        <button id="reserve-book" book-title="{{ book.titulo }}" userEmail="{{ userEmail }}">
+          Reservar
+        </button>
+      </div>
+
+      <div class="book-content">
+        <div class="top-book-content">
+          <h2 class="book-title">{{ book.titulo }}</h2>
+
+          <form id="register-form" method="POST" action="{{ url_for('main.rateBook') }}" class="rate">
+            {% block rate %}
+            {% if rate['calificacion'] != 0 %}
+            <p class="rate-number">{{ rate.calificacion }}</p>
+            {% elif rate['calificacion'] == 0 %}
+            <p class="rate-number">0</p>
+            {% endif%}
+            {% endblock %}
+            <input type="hidden" name="bookName" id="bookName" value="{{ book.titulo }}" />
+            <button type="submit" value="1" name="starButton"><i value="1" class="fa-regular fa-star"
+                style="color: #fdd700"></i></button>
+            <button type="submit" value="2" name="starButton"><i value="2" class="fa-regular fa-star"
+                style="color: #fdd700"></i></button>
+            <button type="submit" value="3" name="starButton"><i value="3" class="fa-regular fa-star"
+                style="color: #fdd700"></i></button>
+            <button type="submit" value="4" name="starButton"><i value="4" class="fa-regular fa-star"
+                style="color: #fdd700"></i></button>
+            <button type="submit" value="5" name="starButton"><i value="5" class="fa-regular fa-star"
+                style="color: #fdd700"></i></button>
+        </div>
+        </form>
+
+        <p class="book-author">De {{ book.autor }}</p>
+        <br />
+        <p class="book-description">{{ book.descripcion }}</p>
+        <br />
+        <p class="book-availability">
+          Disponibilidad:
+          <span style="font-weight: normal"> {{ book.disponibilidad }}</span>
+        </p>
+
+        <div class="genre-list">
+          <p>#{{ book.genero }}</p>
+        </div>
+
+        {% if role.lower() == "admin"%}
+        <div class="admin-buttons">
+          <button id="delete-book">
+            <i class="fa-solid fa-trash" style="color: #30b7f4"></i>"
+          </button>
+          {% if bookData %}
+          <button id="edit-book" bookData="{{ bookData }}">
+            <i class="fa-solid fa-pen-to-square" style="color: #30b7f4"></i>
+          </button>
+          {% endif%}
+        </div>
+        {% endif%}
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <p>No hay datos por mostrar...</p>
+  {% endif %} {% endblock %}
+  <!-- Comentarios -->
+
+  <!-- script type="module" src="../static/js/main.js"></script-->
+  <script type="module" src="../static/js/editBook.js"></script>
+  <script type="module" src="../static/js/rateStar.js"></script>
+  <script type="module" src="../static/js/deleteBook.js"></script>
+  <script type="module" src="../static/js/reserveBook.js"></script>
+  <script type="module" src="../static/js/doubleModalForm.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>iBookify - Inicio de sesión</title>
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <script src="https://kit.fontawesome.com/e0f1625396.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body class="login-background">
+    <div class="login-form-container">
+      {% block content %} 
+        {% if request.path == '/inicio-sesion' or request.path == '/' %} 
+          {%include'login.html' %} 
+        {% elif request.path == '/crear-cuenta' %}
+          {%include'create-account.html' %}
+        {% endif %} 
+      {% endblock %}
+    </div>
+    <img class="logo-icon" src="../static/images/logo-02.png" alt="logo" />
+    <script type="module" src="../static/js/main.js"></script>
+    <script type="module">import { nextButtonForm } from "../static/js/formNext.js"; nextButtonForm();</script>
+  </body>
+</html>

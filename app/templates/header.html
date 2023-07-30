@@ -1,0 +1,34 @@
+{% block header %}
+<div class="header">
+  <img class="logo-icon" src="../static/images/logo-02.png" alt="logo" />
+
+  <div class="searchBox">
+    <input type="search" />
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </div>
+
+  <div class="right-buttons">
+    <i class="fa-solid fa-heart"></i>
+    <div class="profilePic-container">
+      {% if profilePicture %}
+      <img class="" src="{{ profilePicture }}" alt="profilePic" />
+      {% else %}
+      <img
+        class=""
+        src="https://www.alchinlong.com/wp-content/uploads/2015/09/sample-profile.png"
+        alt="profilePic"
+      />
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+<div class="navbar">
+  <a href="{{ url_for('main.dashboard') }}">Inicio</a>
+  <a href="">Libros</a>
+  <a href="">Préstamos</a>
+  <a href="">Reservas</a>
+  <a href="">Recomendaciones</a>
+  <a href="{{ url_for('main.index') }}">Cerrar sesión</a>
+</div>
+{% endblock %}

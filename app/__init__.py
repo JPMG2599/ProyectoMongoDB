@@ -18,6 +18,9 @@ def create_app():
     # Creating the Flask application instance
     app = Flask(__name__)
 
+    # Set secret key for the Flask application
+    app.secret_key = '123456'
+
     # Register blueprints
     app.register_blueprint(bp)
 

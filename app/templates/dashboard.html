@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>iBookify - Inicio</title>
+    <link rel="stylesheet" href="../static/css/app-styles.css" />
+    <script
+      src="https://kit.fontawesome.com/e0f1625396.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body class="dashboard-body">
+    <div class="blurbg"></div>
+    
+    {% block modal %} {% include 'add-book.html' %} {% endblock %}
+
+    <div class="header-container">
+      {% block header %} {%include'header.html' %} {% endblock %}
+    </div>
+
+    {% block filter %}
+    <div class="filter">
+      <h3 style="color: #fafcfd">Resultados:</h3>
+      <h3 style="color: #30b7f4">[A-Z]</h3>
+    </div>
+    {% endblock %}
+
+    {% block books %}
+    <div class="books-container">
+      {% if books %} {% for book in books%}
+      <div class="book">
+        <button onclick="window.location.href='/libro/{{book.libros_ID}}';">
+          <img
+            class="book-coverImg"
+            src="{{ book.imagen_Url }}"
+            alt="Imagen del Libro"
+          />
+        </button>
+      </div>
+      {% endfor %} {% else %}
+      <p>No hay datos por mostrar...</p>
+      {% endif %} 
+      
+      {% if role.lower() == "admin"%}
+      <div class="book-admin">
+        <button id="add-book">
+          <i
+            id="add-book-i"
+            class="fa-solid fa-circle-plus"
+            style="color: #fafcfd"
+          ></i>
+        </button>
+      </div>
+      {% endif%}
+    </div>
+    {% endblock %}
+    <script type="module" src="../static/js/formNext.js"></script>
+    <script type="module" src="../static/js/addBook.js"></script>
+    <script type="module" src="../static/js/submitButton.js"></script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+{% block modal %}
+<div class="modal" id="reserveBook-Modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <i
+        id="closeReserve-modal"
+        class="fa-solid fa-circle-xmark"
+        style="color: #0e111a"
+      ></i>
+      <div class="title"><h2>Reservar un libro</h2></div>
+    </div>
+
+    <div class="modal-form">
+      <form
+        method="POST"
+        action="{{ url_for('main.reserveBook') }}"
+        id="register-form"
+      >
+        <input type="hidden" name="libros_ID" value="{{ libros_ID }}" />
+        <div class="form-input-container current">
+          <label for="userEmail">Usuario:</label>
+          <input type="email" name="userEmail" id="userEmail" readonly />
+        </div>
+
+        <div class="form-input-container current">
+          <label for="bookName">Libro a reservar:</label>
+          <input type="text" name="bookName" id="bookName" readonly />
+        </div>
+
+        <div class="form-input-container current">
+          <label for="reserveDate">Fecha de reserva:</label>
+          <input type="date" name="reserveDate" id="reserveDate" required />
+        </div>
+
+        <!-- Botón de enviar -->
+        <input
+          id="reserveBook"
+          class="submitData"
+          type="submit"
+          value="Guardar"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

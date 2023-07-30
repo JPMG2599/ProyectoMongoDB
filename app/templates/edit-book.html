@@ -1,0 +1,80 @@
+{% block editModal %}
+<div class="modal" id="editBook-Modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <i
+        id="closeBook-modal"
+        class="fa-solid fa-circle-xmark"
+        style="color: #0e111a"
+      ></i>
+      <div class="title"><h2>Editar un libro</h2></div>
+    </div>
+
+    <div class="modal-form">
+      <form
+        method="POST"
+        action="{{ url_for('main.updateBook', libros_ID=book.libros_ID ) }}"
+        id="register-form"
+      >
+        <div class="form-input-container current">
+          <label for="title">Titulo:</label>
+          <input type="text" name="title" id="title" required />
+        </div>
+
+        <div class="form-input-container current">
+          <label for="author">Autor:</label>
+          <input type="text" name="author" id="author" required />
+        </div>
+
+        <div class="form-input-container current">
+          <label for="genre">Género:</label>
+          <input type="text" name="genre" id="genre" required />
+        </div>
+
+        <div class="form-input-container current">
+          <label for="publishDate">Fecha de publicación:</label>
+          <input type="date" name="publishDate" id="publishDate" required />
+        </div>
+
+        <!-- Campos ocultos -->
+        <div class="form-input-container next">
+          <label for="availability">Disponibilidad:</label>
+          <input type="text" name="availability" id="availability" />
+        </div>
+
+        <div class="form-input-container next">
+          <label for="imageURL">Imagen URL:</label>
+          <input type="text" name="imageURL" id="imageURL" />
+        </div>
+
+        <div class="form-input-container next">
+          <label for="totalOfCopies">Copias totales:</label>
+          <input type="text" name="totalOfCopies" id="totalOfCopies" />
+        </div>
+
+        <div class="form-input-container next">
+          <label for="description">Descripción:</label>
+          <input type="text" name="description" id="description" />
+        </div>
+        <!-- Fin de campos ocultos -->
+
+        <!-- Botón de siguiente -->
+        <div class="navigation-buttons">
+          <button id="next" type="button">
+            Siguiente<i class="fa-solid fa-angle-right"></i>
+          </button>
+        </div>
+
+        <!-- Botón de enviar -->
+        <input
+          id="editBook"
+          class="submitData"
+          type="submit"
+          value="Actualizar libro"
+          style="display: none"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

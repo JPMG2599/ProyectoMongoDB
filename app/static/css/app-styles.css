@@ -1,0 +1,419 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+/** Variables **/
+:root {
+  /* Dark blue */
+  --black-color: #0e111a;
+  --dark_purple-color: #0d1632;
+  --night_blue-color: #070e27;
+
+  /* Light blue */
+  --blue-color: #0059f7;
+  --sky_blue-color: #30b7f4;
+
+  /** White and Gray */
+  --white-color: #fafcfd;
+  --gray-color: #f7f7f7;
+
+  /** Action button color **/
+  --cancel-button-color: #e03345;
+  --star-color: #fdd700;
+}
+
+body {
+  background-color: var(--night_blue-color);
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Roboto", sans-serif;
+}
+
+/** ***** DASHBOARD ***** **/
+/** ***** header ***** **/
+.header-container {
+  background-color: var(--black-color);
+}
+
+.header {
+  display: flex;
+  padding: 25px 80px 25px 80px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo-icon {
+  min-width: 7%;
+  max-width: 7%;
+}
+
+.searchBox {
+  width: 40%;
+  padding: 10px;
+  display: flex;
+  border-radius: 30px;
+  justify-content: center;
+  align-items: center;
+  background: var(--white-color);
+}
+
+.searchBox input {
+  width: 94%;
+  border: none;
+  outline-style: none;
+  background: transparent;
+}
+
+.searchBox i {
+  width: 3%;
+  color: var(--black-color);
+}
+
+.fa-heart {
+  color: var(--white-color);
+}
+
+.profilePic-container img {
+  border-radius: 50%;
+  width: 38px;
+}
+
+.profilePic-container img:hover {
+  cursor: pointer;
+}
+
+.right-buttons {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  width: 6%;
+}
+
+.right-buttons i {
+  font-size: 32px;
+}
+
+/** ***** navbar ***** **/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 80px 12px 80px;
+  background: var(--blue-color);
+}
+
+.navbar a {
+  color: var(--white-color);
+  text-decoration: none;
+  font-size: 23px;
+}
+
+.navbar a:hover {
+  color: var(--dark_purple-color);
+}
+
+/** ***** filter ***** **/
+.filter {
+  display: flex;
+  font-size: 20px;
+  padding: 55px 80px;
+}
+
+.filter h3 {
+  margin-right: 10px;
+}
+
+/** ***** books ***** **/
+.books-container {
+  display: flex;
+  padding: 0px 80px;
+  flex-wrap: wrap;
+}
+
+.book {
+  width: auto;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  width: auto;
+}
+
+.book button {
+  border: none;
+  background-color: transparent;
+}
+
+.book button:hover {
+  cursor: pointer;
+}
+
+.book button img {
+  width: 200px;
+  height: 300px;
+  -webkit-box-shadow: 0px 0px 15px -4px rgba(25, 25, 49, 1);
+  -moz-box-shadow: 0px 0px 15px -4px rgba(25, 25, 49, 1);
+  box-shadow: 0px 0px 15px -4px rgba(25, 25, 49, 1);
+}
+
+.book-admin {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  border-style: dotted;
+  border-color: var(--white-color);
+}
+
+.book-admin button {
+  background-color: transparent;
+  border: none;
+}
+
+.book-admin button:hover {
+  cursor: pointer;
+}
+
+.book-admin button i {
+  font-size: 40px;
+}
+
+/** ***** Add Book Modal ***** **/
+#addBook-Modal,
+#editBook-Modal {
+  display: none;
+}
+
+.blurbg {
+  /* Apply a semi-transparent background to create the blur effect */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  /* Apply the blur effect */
+  z-index: 9999;
+  display: none;
+}
+
+/* Esto es para poner borroso el fondo*/
+.addBook-modal-open>*:not(.modal) {
+  /* Apply the blur effect to the dashboard content when the modal is open */
+  filter: blur(5px);
+  opacity: 50%;
+  pointer-events: none;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--white-color);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  display: flex;
+  padding: 25px 60px;
+  /** Centrar **/
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  border-radius: 30px;
+}
+
+.modal-content {
+  width: 100%;
+}
+
+#closeBook-modal:hover {
+  cursor: pointer;
+}
+
+.modal-header {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+}
+
+.modal-header h2 {
+  margin-bottom: 10px;
+}
+
+.modal-header i {
+  margin-left: auto;
+  margin-bottom: 5px;
+  font-size: 24px;
+}
+
+.form-input-container {
+  padding: 0px 0px 33px 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input-container label {
+  padding: 0px 0px 17px 0px;
+}
+
+.form-input-container input {
+  padding: 10px;
+  background-color: var(--gray-color);
+  border: 1px solid #a7a7a7;
+  border-radius: 30px;
+}
+
+.modal-form input[type="submit"] {
+  width: 100%;
+  font-size: 16px;
+  font-weight: bold;
+  background: var(--sky_blue-color);
+  border: 1px solid var(--black-color);
+  border-radius: 30px;
+  padding: 10px;
+  justify-content: center;
+}
+
+.navigation-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  padding: 0;
+}
+
+.navigation-buttons button {
+  padding: 0;
+  border: none;
+  background: none;
+  font-size: 16px;
+}
+
+.navigation-buttons button:hover {
+  cursor: pointer;
+}
+
+.next {
+  display: none;
+}
+
+/** ***** BOOK DETAILS ***** **/
+.book-details-container {
+  padding: 100px 80px;
+}
+
+.book-container-bg {
+  display: flex;
+  border-radius: 30px;
+  padding: 30px 50px;
+  position: relative;
+  color: var(--white-color);
+  background-color: var(--dark_purple-color);
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(9, 16, 37, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(9, 16, 37, 1);
+  box-shadow: 8px 8px 24px 0px rgba(9, 16, 37, 1);
+}
+
+.bookImage {
+  position: absolute;
+  top: -15px;
+  left: 30px;
+}
+
+.bookImage img {
+  width: 200px;
+  height: 300px;
+  display: flex;
+}
+
+/* Boton de reservar */
+.bookImage button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background: var(--sky_blue-color);
+  border: 1px solid var(--black-color);
+  border-radius: 30px;
+}
+
+.book-content {
+  flex: 1;
+  padding-left: 110px;
+  margin-left: 90px;
+}
+
+.top-book-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rate {
+  display: flex;
+  font-size: 16px;
+  align-items: center;
+}
+
+.rate button {
+  background: transparent;
+  border: none;
+}
+
+.rate p, .rate i {
+  padding: 2px;
+}
+
+.book-availability {
+  font-weight: bold;
+}
+
+.genre-list {
+  color: var(--sky_blue-color);
+}
+
+.top-book-content, .rate, .book-author, .book-description, .book-availability{
+  padding-bottom: 10px;
+}
+
+.admin-buttons {
+  float: right;
+}
+
+.admin-buttons button {
+  background: transparent;
+  border: none;
+}
+
+.admin-buttons button:hover {
+  cursor: pointer;
+}
+
+.admin-buttons i {
+  font-size: 16px;
+  padding: 2px;
+}
+
+/** Reservar un libro modal **/
+#reserveBook-Modal {
+  display: none;
+}
+
+.book-body.addBook-modal-open>*:not(.modal) {
+  /* Apply the blur effect to the dashboard content when the modal is open */
+  filter: blur(5px);
+  opacity: 50%;
+  pointer-events: none;
+}
+
+#editBook-Modal {
+  display: none;
+}
+
+.book-body.editBook-modal-open>*:not(.modal) {
+  filter: blur(5px);
+  opacity: 50%;
+  pointer-events: none;
+}
