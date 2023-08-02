@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>iBookify - Inicio</title>
+    <link rel="stylesheet" href="../static/css/app-styles.css" />
+    <script
+      src="https://kit.fontawesome.com/e0f1625396.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body class="dashboard-body">
+    <div class="blurbg"></div>
+    
+    <div class="header-container-profile">
+      <div id="backButton">
+        <i class="fa-solid fa-angle-left fa-xl" style="color: #ffffff"></i>
+        <h3>Volver</h3>
+      </div>
+    </div>
+
+    {% if data %}
+    {% block editModal %} {% include 'edit-profile.html' %} {% endblock %}
+    {% block addGenre %} {% include 'add-genre.html' %} {% endblock %}
+    <div class="profile-container">
+      <h2>Tu información</h2>
+      <div class="profile-data">
+        <div class="profile-picture">
+          {% if data.fotoPerfil %}
+          <img class="" src="{{ data.fotoPerfil }}" alt="profilePic" />
+          {% else %}
+          <img
+            class=""
+            src="https://www.alchinlong.com/wp-content/uploads/2015/09/sample-profile.png"
+            alt="profilePic"
+          />
+          {% endif %}
+        </div>
+
+        <div class="profile-details">
+          <div class="profile-details-head">
+            <h3>{{ data.nombre}} {{data.apellido1}}</h3>
+            {% if profileData %}
+            <button id="edit-profile" data="{{ profileData }}">Editar perfil</button>
+            {% endif %}
+          </div>
+          <div class="profile-details-line"></div>
+          <div class="profile-details-content">
+            <h3>Cédula: {{ data.cedula}}</h3>
+            <h3>Correo electrónico: {{ data.correo_electronico}}</h3>
+            <h3>Rol: {{ data.rol }}</h3>
+          </div>
+        </div>
+      </div>
+
+      <div class="genre-details">
+        <div class="genre-details-head">
+          <h3>Géneros favoritos</h3>
+          <button id="add-genre">Agregar</button>
+        </div>
+
+        <div class="profile-details-line"></div>
+
+        <div class="list-genre">
+            {% for genre in data.genFavorito %}
+            <p>#{{ genre }}</p>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <script type="module" src="../static/js/editProfile.js"></script>
+    <script type="module" src="../static/js/addGenre.js"></script>
+  </body>
+</html>

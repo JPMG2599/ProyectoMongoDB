@@ -11,7 +11,3 @@ export const isEmpty = (input) => {
   }
   return isEmpty;
 };
-
-export const checkPassword = (password, confirmPassword) => {
-  console.log("Checking password...");
-};

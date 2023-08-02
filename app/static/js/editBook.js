@@ -15,11 +15,19 @@ try {
     document.getElementById("title").value = bookData.titulo;
     document.getElementById("author").value = bookData["autor"];
     document.getElementById("genre").value = bookData["genero"];
-    document.getElementById("publishDate").value = bookData["ano_publicacion"].split(" ")[0];
-    document.getElementById('availability').value = bookData['disponibilidad']
-    document.getElementById('imageURL').value = bookData['imagen_Url']
-    document.getElementById('totalOfCopies').value = bookData['copias_totales']
-    document.getElementById('description').value = bookData['descripcion']
+    document.getElementById("publishDate").value =
+      bookData["ano_publicacion"].split(" ")[0];
+    document.getElementById("availability").value = bookData["disponibilidad"];
+    document.getElementById("imageURL").value = bookData["imagen_Url"];
+    document.getElementById("totalOfCopies").value = bookData["copias_totales"];
+    document.getElementById("description").value = bookData["descripcion"];
+
+    // Crear un nuevo elemento script
+    const script = document.createElement("script");
+    script.src = "../static/js/doubleModalForm.js";
+    script.type = "module";
+    // Agregar el script al final del body para cargarlo
+    document.body.appendChild(script);
   });
 
   modalClose.addEventListener(

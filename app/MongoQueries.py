@@ -17,7 +17,27 @@ def inserOneUser(data):
         UserCollection.insert_one(data)
     except:
         print("Error!")
+
+def getNextUserID():
+    try:
+        users = list(UserCollection.find())
+        return len(users)
+    except:
+        print("Error!")
+    return 0
+
+def insertFavGenre(id, data):
+    try:
+        UserCollection.update_one({'usuarios_ID': id}, {'$set': data})
+    except:
+        print("Error!")
         
+def updateOneUser(data):
+    try:
+        UserCollection.update_one({'usuarios_ID': data['usuarios_ID']}, {'$set': data})
+    except:
+        print("Error!")
+
 def getUsers():
     try:
         results = UserCollection.find()
@@ -55,6 +75,16 @@ def getUserByEmail(email):
 def getProfilePic(data):
     return data[0]['fotoPerfil']
 
+def getFavGenre(email):
+    try:
+        user = UserCollection.find_one({'correo_electronico': email}, {'genFavorito': 1, '_id': 0})
+        if user:
+            return user.get('genFavorito', [])
+        else: return None
+    except:
+        print("Error!")
+        return None
+
 # LIRBOS
 def getBooks():
     try:
@@ -69,6 +99,14 @@ def getBookByID(id):
     except:
         book = []
     return book
+
+def getBookByGenres(genreList):
+    try:
+        normalized_genre_list = [genre.capitalize() for genre in genreList]
+        books = list(BookCollection.find({'genero': {'$in': normalized_genre_list}}))
+    except:
+        books = []
+    return books
 
 def insertBook(data):
     try:

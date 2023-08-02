@@ -5,7 +5,9 @@
 # Imports
 import json
 from flask import Blueprint, render_template, request, session, redirect, url_for
-from .MongoQueries import isUser, getUsers, inserOneUser, getProfilePic, getUserByEmail, getBooks, getRole, insertBook, getBookByID, insertReserve,getNextID,insertRate, getBookByTitle, getRateByUser, deleteBookById, updateBookByID
+from .MongoQueries import isUser, getUsers, inserOneUser, getProfilePic, getUserByEmail, getBooks, getRole, insertBook, getBookByID 
+from .MongoQueries import insertReserve,getNextID,insertRate, getBookByTitle, getRateByUser, deleteBookById, updateBookByID, getNextUserID, updateOneUser, insertFavGenre
+from .MongoQueries import getFavGenre, getBookByGenres
 
 # Create a Blueprint object
 bp = Blueprint("main", __name__)
@@ -44,6 +46,7 @@ def createAccount():
     if request.method == 'POST':
         # Se obtienen los datos del form
         data = {
+            'usuarios_ID': getNextUserID() + 1,
             'nombre': request.form['name'],
             'apellido1': request.form['surname'],
             'cedula': request.form['userID'],
@@ -51,7 +54,7 @@ def createAccount():
             'contrasena': request.form['password'],
             'rol': 'user',
             'fotoPerfil': request.form['profilePic'],
-            'genFavorito': request.form['favGenre']
+            'genFavorito': [request.form['favGenre'].capitalize()]
         }
         inserOneUser(data)
         return redirect(url_for("main.login"))
@@ -73,7 +76,7 @@ def insertBooks():
         'libros_ID': len(getBooks()) + 1,
         'titulo': request.form['title'],
         'autor': request.form['author'],
-        'genero': request.form['genre'],
+        'genero': request.form['genre'].capitalize(),
         'ano_publicacion': request.form['publishDate'],
         'descripcion': request.form['description'],
         'disponibilidad': request.form['availability'],
@@ -93,7 +96,9 @@ def bookDetails(libros_ID):
                 'imagen_Url': book[0]['imagen_Url'], 'copias_totales': book[0]['copias_totales']}
     
     rate = getRateByUser(session.get('userEmail'), book[0]['titulo'])
-    return render_template("book-details.html", book=book[0], role=session.get('userRole'), userEmail = session.get('userEmail'), rate=rate[0], bookData=json.dumps(bookData))
+    return render_template("book-details.html", book=book[0], role=session.get('userRole'), 
+                           userEmail = session.get('userEmail'), rate=rate[0], bookData=json.dumps(bookData), 
+                           profilePicture=getProfilePic(getUserByEmail(session.get('userEmail'))))
 
 @bp.route("/libro/reservar", methods = ["POST"])
 def reserveBook():
@@ -125,12 +130,11 @@ def deleteBook(libros_ID):
 
 @bp.route('/libro/<int:libros_ID>/actualizar', methods = ['GET', 'POST'])
 def updateBook(libros_ID):
-    print("ID--> " + str(libros_ID))
     data = {
         'libros_ID': libros_ID,
         'titulo': request.form['title'],
         'autor': request.form['author'],
-        'genero': request.form['genre'],
+        'genero': request.form['genre'].capitalize(),
         'ano_publicacion': request.form['publishDate'],
         'descripcion': request.form['description'],
         'disponibilidad': request.form['availability'],
@@ -139,3 +143,59 @@ def updateBook(libros_ID):
     }
     updateBookByID(libros_ID,data)
     return redirect(url_for("main.bookDetails", libros_ID=libros_ID))
+
+@bp.route('/perfil')
+def myProfile():
+    data = getUserByEmail(session.get('userEmail'))
+    
+    # datos sin objectID para que mas adelante no de problemas
+    profileData = {'usuarios_ID': data[0]['usuarios_ID'], 'nombre': data[0]['nombre'], 'apellido1':data[0]['apellido1'],
+                   'cedula':data[0]['cedula'], 'correo_electronico':data[0]['correo_electronico'], 'contrasena': data[0]['contrasena'], 
+                   'rol': data[0]['rol'], 'generos_favoritos':data[0]['genFavorito'],
+                   'fotoPerfil': data[0]['fotoPerfil']}
+
+    return render_template('profile.html', data=data[0], profileData=json.dumps(profileData))
+
+@bp.route('/perfil/editar', methods = ['GET', 'POST'])
+def editProfile():
+    data = getUserByEmail(session.get('userEmail'))
+
+    # verificamos la contraseña
+    if (request.form['password'] == ""):
+        password = data[0]['contrasena']
+    elif (request.form['password'] != ""):
+        password = request.form["password"]
+
+    receivedData = {
+          "usuarios_ID": data[0]["usuarios_ID"],
+          "nombre": request.form["name"],
+          "apellido1": request.form["surname"],
+          "cedula":request.form["userID"],
+          "correo_electronico":request.form["email"],
+          "contrasena":password,
+          "fotoPerfil":request.form["profilePic"]
+    }
+    updateOneUser(receivedData)
+    return redirect(url_for('main.myProfile'))
+
+@bp.route('/perfil/genero/agregar', methods = ['GET', 'POST'])
+def addGenre():
+    userData = getUserByEmail(session.get('userEmail'))
+    # agregamos el genero
+    userData[0]['genFavorito'].append(request.form['genre-name'].capitalize())
+
+    data = {
+        'genFavorito': userData[0]['genFavorito']
+    }
+    insertFavGenre(userData[0]['usuarios_ID'], data)
+    return redirect(url_for('main.myProfile'))
+
+@bp.route('/recomendaciones', methods = ['GET', 'POST'])
+def recommendations():
+    email = session.get('userEmail')
+    profilePicture = getProfilePic(getUserByEmail(email))
+    # esto nos devuelve un array de los generos favoritos
+    genreList = getFavGenre(email) 
+    # esto nos devuelve los libros que tengan esos generos
+    books = getBookByGenres(genreList)
+    return render_template("recommendations.html", profilePicture=profilePicture, books=books)

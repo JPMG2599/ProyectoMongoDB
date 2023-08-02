@@ -1,4 +1,4 @@
-import { isEmpty, checkPassword } from "./validators.js";
+import { isEmpty } from "./validators.js";
 
 // Boton de envio
 const submitButton = document.querySelector(".submitData");
@@ -16,8 +16,6 @@ let isFormValid = true;
 // evento al hacer click al btn de enviar form
 submitButton.addEventListener("click", (e) => {
   e.preventDefault();
-
-  console.log(inputs);
 
   // Verificamos que ningun input este vacío
   for (const input of inputs) {

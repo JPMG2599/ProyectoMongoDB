@@ -1,0 +1,40 @@
+{% block addGenre %}
+<div class="modal" id="addGenre-Modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <i
+        id="closeGenre-modal"
+        class="fa-solid fa-circle-xmark"
+        style="color: #0e111a"
+      ></i>
+      <div class="title"><h2>Agregar género</h2></div>
+    </div>
+
+    <div class="modal-form">
+      <form
+        method="POST"
+        action="{{ url_for('main.addGenre') }}"
+        id="genre-form"
+      >
+        <div class="form-input-container current">
+          <label for="genre-name">Nombre:</label>
+          <input
+            type="text"
+            name="genre-name"
+            id="genre-name"
+            autocomplete="off"
+            required
+          />
+        </div>
+        <!-- Botón de enviar -->
+        <input
+          id="addGenre-submit"
+          class="submitData"
+          type="submit"
+          value="Guardar"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

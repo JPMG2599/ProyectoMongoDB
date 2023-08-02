@@ -1,0 +1,114 @@
+{% block editModal %}
+<div class="modal" id="editProfile-Modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <i
+        id="closeBook-modal"
+        class="fa-solid fa-circle-xmark"
+        style="color: #0e111a"
+      ></i>
+      <div class="title"><h2>Editar un perfil</h2></div>
+    </div>
+
+    <div class="modal-form">
+      <form
+        method="POST"
+        action="{{ url_for('main.editProfile') }}"
+        id="register-form"
+      >
+        <div class="form-input-container current">
+          <label for="name">Nombre:</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="form-input-container current">
+          <label for="surname">Apellido:</label>
+          <input
+            type="text"
+            name="surname"
+            id="surname"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="form-input-container current">
+          <label for="userID">Cédula:</label>
+          <input
+            type="text"
+            name="userID"
+            id="userID"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="form-input-container current">
+          <label for="email">Correo electrónico:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <!-- Campos ocultos -->
+        <div class="form-input-container next">
+          <label for="profilePic">Foto de perfil URL:</label>
+          <input
+            type="text"
+            name="profilePic"
+            id="profilePic"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="form-input-container next">
+          <label for="password">Contraseña:</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="form-input-container next">
+          <label for="confirmPassword">Confirmar contraseña:</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            id="confirmPassword"
+            autocomplete="off"
+          />
+        </div>
+        <!-- Fin de campos ocultos -->
+
+        <!-- Botón de siguiente -->
+        <div class="navigation-buttons">
+          <button id="next" type="button">
+            Siguiente<i class="fa-solid fa-angle-right"></i>
+          </button>
+        </div>
+
+        <!-- Botón de enviar -->
+        <input
+          id="editProfile"
+          class="submitData"
+          type="submit"
+          value="Actualizar pefil"
+          style="display: none"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

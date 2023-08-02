@@ -9,7 +9,7 @@
 
   <div class="right-buttons">
     <i class="fa-solid fa-heart"></i>
-    <div class="profilePic-container">
+    <div class="profilePic-container" id="profilePic">
       {% if profilePicture %}
       <img class="" src="{{ profilePicture }}" alt="profilePic" />
       {% else %}
@@ -25,10 +25,10 @@
 </div>
 <div class="navbar">
   <a href="{{ url_for('main.dashboard') }}">Inicio</a>
-  <a href="">Libros</a>
+  <a href="{{ url_for('main.dashboard') }}">Libros</a>
   <a href="">Préstamos</a>
   <a href="">Reservas</a>
-  <a href="">Recomendaciones</a>
+  <a href="{{ url_for('main.recommendations') }}">Recomendaciones</a>
   <a href="{{ url_for('main.index') }}">Cerrar sesión</a>
 </div>
 {% endblock %}
