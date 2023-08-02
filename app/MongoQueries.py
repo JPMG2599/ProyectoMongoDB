@@ -17,7 +17,7 @@ def inserOneUser(data):
         UserCollection.insert_one(data)
     except:
         print("Error!")
-        
+
 def getUsers():
     try:
         results = UserCollection.find()
@@ -51,6 +51,12 @@ def getUserByEmail(email):
     except:
         results = []
     return results
+
+def updateUserByMail(email, data):
+    try:
+        UserCollection.find_one_and_update({'correo_electronico': email}, {'$set': data})
+    except:
+        print("Error!")
 
 def getProfilePic(data):
     return data[0]['fotoPerfil']

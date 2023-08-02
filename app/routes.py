@@ -5,7 +5,7 @@
 # Imports
 import json
 from flask import Blueprint, render_template, request, session, redirect, url_for
-from .MongoQueries import isUser, getUsers, inserOneUser, getProfilePic, getUserByEmail, getBooks, getRole, insertBook, getBookByID, insertReserve,getNextID,insertRate, getBookByTitle, getRateByUser, deleteBookById, updateBookByID
+from .MongoQueries import isUser, updateUserByMail, getUsers, inserOneUser, getProfilePic, getUserByEmail, getBooks, getRole, insertBook, getBookByID, insertReserve,getNextID,insertRate, getBookByTitle, getRateByUser, deleteBookById, updateBookByID
 
 # Create a Blueprint object
 bp = Blueprint("main", __name__)
@@ -57,6 +57,24 @@ def createAccount():
         return redirect(url_for("main.login"))
     return render_template("create-account.html")
     
+@bp.route("/cambiar-contrasena", methods=['GET', 'POST'])
+def forgotPassword():#COMPARANDO CON CREATE ACCOUNT
+# Autenticación de usuario
+    if request.method == 'POST':
+        # Se obtiene los datos segun el name del input
+        email = request.form['email']
+        user = getUserByEmail(email)
+
+        if user:
+            data ={
+                'contrasena': request.form['password']
+            }# Se actualiza los datos
+            updateUserByMail(email, data)
+        else:
+            return redirect(url_for("main.login"))
+    # Sino, solo se muestra la página
+    return render_template("change-password.html")
+
 @bp.route("/inicio")
 def dashboard():
     email = session.get('userEmail')
