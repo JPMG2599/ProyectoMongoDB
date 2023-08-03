@@ -64,10 +64,7 @@ def createAccount():
 def dashboard():
     email = session.get('userEmail')
     profilePicture = getProfilePic(getUserByEmail(email))
-    
-    # Rendering books
     books = getBooks()
-
     return render_template("dashboard.html", profilePicture=profilePicture, books=books, role=session.get('userRole'))
 
 @bp.route("/libro/agregar", methods = ["POST"])
