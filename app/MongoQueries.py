@@ -85,6 +85,12 @@ def getFavGenre(email):
         print("Error!")
         return None
 
+def updateUserByMail(email, data):
+    try:
+        UserCollection.find_one_and_update({'correo_electronico': email}, {'$set': data})
+    except:
+        print("Error!")
+
 # LIRBOS
 def getBooks():
     try:

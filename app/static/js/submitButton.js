@@ -3,7 +3,7 @@ import { isEmpty } from "./validators.js";
 // Boton de envio
 const submitButton = document.querySelector(".submitData");
 // inputs que se muestran
-const inputs = document.querySelectorAll(".form-input-container.next input");
+let inputs = document.querySelectorAll(".form-input-container.next input");
 const nextInputs = document.querySelectorAll(
   ".form-input-container.next input"
 );
@@ -12,10 +12,12 @@ const myForm = document.getElementById("register-form");
 
 let isFormValid = true;
 
-
 // evento al hacer click al btn de enviar form
 submitButton.addEventListener("click", (e) => {
   e.preventDefault();
+
+  if (window.location.pathname === "/cambiar-contrasena")
+    inputs = document.querySelectorAll(".form-input-container.current input");
 
   // Verificamos que ningun input este vacío
   for (const input of inputs) {
@@ -29,10 +31,14 @@ submitButton.addEventListener("click", (e) => {
 
   // validamos las contraseñas de ser necesario
   try {
-    const passwordField = document.getElementById('password');
-    const confirmPasswordField = document.getElementById('confirmPassword');
+    const passwordField = document.getElementById("password");
+    const confirmPasswordField = document.getElementById("confirmPassword");
 
-    if ((passwordField && confirmPasswordField) && passwordField.value !== confirmPasswordField.value) {
+    if (
+      passwordField &&
+      confirmPasswordField &&
+      passwordField.value !== confirmPasswordField.value
+    ) {
       isFormValid = false;
       alert("¡Error! Las contraseñas no coinciden");
       window.location.href = window.location.pathname;
