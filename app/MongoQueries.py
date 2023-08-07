@@ -161,12 +161,7 @@ def getReserves():
         reserves = []
     return reserves
 
-def getBorrowed():
-    try:
-        borrowed: list(BorrowedCollection.find())
-    except: 
-        borrowed = []
-    return borrowed    
+
 
 
 
@@ -191,5 +186,10 @@ def getRateByUser(email, bookTitle):
         print("Error!")
     return rate
 
-#RESERVACIONES
-    
+#PRESTAMOS
+def getBorrowed():
+    try:
+        borrowed: list(BorrowedCollection.find())
+    except: 
+        borrowed = []
+    return borrowed        

@@ -26,8 +26,8 @@
 <div class="navbar">
   <a href="{{ url_for('main.dashboard') }}">Inicio</a>
   <a href="{{ url_for('main.dashboard') }}">Libros</a>
-  <a href="">Préstamos</a>
-  <a href="">Reservas</a>
+  <a href="{{ url_for('main.borrowed') }}">Préstamos</a>
+  <a href="{{ url_for('main.reservations') }}">Reservas</a>
   <a href="{{ url_for('main.recommendations') }}">Recomendaciones</a>
   <a href="{{ url_for('main.index') }}">Cerrar sesión</a>
 </div>
