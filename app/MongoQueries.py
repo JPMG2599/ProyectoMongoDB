@@ -9,6 +9,7 @@ UserCollection = db.Usuarios
 BookCollection = db.Libros
 ReserveCollection = db.Reservas
 RatesCollection = db.Calificaciones 
+BorrowedCollection = db.Prestamos
 
 # --- Defining queries ---
 # USUARIOS
@@ -153,6 +154,22 @@ def getNextID():
         print("Error!")
     return "RE00000"
 
+def getReserves():
+    try:
+        reserves = list(ReserveCollection.find())
+    except:
+        reserves = []
+    return reserves
+
+def getBorrowed():
+    try:
+        borrowed: list(BorrowedCollection.find())
+    except: 
+        borrowed = []
+    return borrowed    
+
+
+
 # CALIFICACIONES
 def insertRate(data):    
     try:
@@ -175,11 +192,4 @@ def getRateByUser(email, bookTitle):
     return rate
 
 #RESERVACIONES
-def getReserves():
-    try:
-        reserves = list(ReserveCollection.find())
-    except:
-        reserves = []
-    return reserves
-
-
+    

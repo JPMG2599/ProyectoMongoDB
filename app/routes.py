@@ -8,7 +8,7 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from .MongoQueries import isUser, getUsers, inserOneUser, getProfilePic, getUserByEmail, getBooks, getRole, insertBook, getBookByID 
 from .MongoQueries import insertReserve,getNextID,insertRate, getBookByTitle, getRateByUser, deleteBookById, updateBookByID, getNextUserID, updateOneUser, insertFavGenre
 from .MongoQueries import getFavGenre, getBookByGenres, updateUserByMail
-from .MongoQueries import getReserves
+from .MongoQueries import getReserves, getBorrowed
 
 # Create a Blueprint object
 bp = Blueprint("main", __name__)
@@ -223,3 +223,8 @@ def reservations():
     profilePicture = getProfilePic(getUserByEmail(email))
     reservations = getReserves()
     return render_template("reserves.html", profilePicture=profilePicture, reservations=reservations) 
+
+@bp.route('/prestamos')
+def borrowed():
+    borrowed = getBorrowed()
+    return render_template("borrowed.html", borrowed=borrowed) 
