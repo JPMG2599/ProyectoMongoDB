@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta charset="UTF-8"/>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Document</title>
+    </head>
+    <body>
+        {% block reservations %}
+        <div style="display: flex;">
+            {%if reservations %} {% for reservation in reservations%}
+          <h3 class="id" style="padding: 10px;">{% reservation.id %} 
+            
+          <h3 class="correo" style="padding: 10px;">{% reservation.usuario %}<h3>
+          <h3 class="nombreLibro" style="padding: 10px;">{% reservation.libro %}<h3>
+          <h3 class="fecha" style="padding: 10px;">{% reservation.fechaReservacion %}<h3> 
+        </div>
+        {% endblock %}
+     </body>
+</html>     
+
+
