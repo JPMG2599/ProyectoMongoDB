@@ -532,3 +532,19 @@ body {
   color: var(--sky_blue-color);
   margin-right: 10px;
 }
+
+/** Borrows & Reservations **/
+.borrows-container {
+  margin-top: 31px;
+  border-radius: 30px;
+  padding: 25px 51px 25px 51px;
+  background: var(--dark_purple-color);
+  -webkit-box-shadow: 8px 8px 24px 0px rgba(9, 16, 37, 1);
+  -moz-box-shadow: 8px 8px 24px 0px rgba(9, 16, 37, 1);
+  box-shadow: 8px 8px 24px 0px rgba(9, 16, 37, 1);
+  display: flex;
+  padding: 0px 80px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  background: var(--dark_purple-color);
+}

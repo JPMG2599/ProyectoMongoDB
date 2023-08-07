@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-      <meta charset="UTF-8"/>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <title>Document</title>
-    </head>
-    <body>
+  <head>
+    <title>iBookify - Inicio</title>
+    <link rel="stylesheet" href="../static/css/app-styles.css" />
+    <script
+      src="https://kit.fontawesome.com/e0f1625396.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+    <body class="dashboard-body">
+      
+    <div class="header-container">
+      {% block header %} {%include'header.html' %} {% endblock %}
+    </div>
+
+    <div class="profile-container" >
         {% block borrows %}
-        <div style="display: flex;">
-            {%if borrows %} {% for borrow in borrows%}
-          <h3 class="id" style="padding: 10px;">{%borrow.id %}<h3> 
+        {%if borrows %} {% for borrow in borrows%}
+        <div class="profile-data">
+          <h3 class="id" style="padding: 10px;">{{ borrow.id }}<h3> 
             
-          <h3 class="correo" style="padding: 10px;">{% borrow.usuario %}<h3>
-          <h3 class="nombreLibro" style="padding: 10px;">{% borrow.libro %}<h3>
-          <h3 class="fecha" style="padding: 10px;">{% borrow.fechaPrestamo %}<h3> 
+          <h3 class="correo" style="padding: 10px;">{{ borrow.usuario }}<h3>
+          <h3 class="nombreLibro" style="padding: 10px;">{{ borrow.libro }}<h3>
+          <h3 class="fecha" style="padding: 10px;">{{ borrow.fechaPrestamo }}<h3> 
         </div>
+        {% endfor %}{% endif %}
         {% endblock %}
+      </div>
      </body>
 </html> 

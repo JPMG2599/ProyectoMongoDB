@@ -216,7 +216,7 @@ def forgotPassword():#COMPARANDO CON CREATE ACCOUNT
     # Sino, solo se muestra la página
     return render_template("change-password.html")
 
-@bp.route("/reservaciones")
+@bp.route("/reservaciones", methods=['GET', 'POST'])
 def reservations():
    
     email = session.get('userEmail')
@@ -224,7 +224,7 @@ def reservations():
     reservations = getReserves()
     return render_template("reserves.html", profilePicture=profilePicture, reservations=reservations) 
 
-@bp.route('/prestamos')
+@bp.route('/prestamos', methods=['GET', 'POST'])
 def borrowed():
-    borrowed = getBorrowed()
-    return render_template("borrowed.html", borrowed=borrowed) 
+    borrows = getBorrowed()
+    return render_template("borrows.html", borrows=borrows) 

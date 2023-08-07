@@ -189,7 +189,7 @@ def getRateByUser(email, bookTitle):
 #PRESTAMOS
 def getBorrowed():
     try:
-        borrowed: list(BorrowedCollection.find())
+        borrowed = list(BorrowedCollection.find())
     except: 
         borrowed = []
-    return borrowed        
+    return borrowed
