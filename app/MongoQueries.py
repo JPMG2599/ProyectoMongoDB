@@ -173,3 +173,13 @@ def getRateByUser(email, bookTitle):
     except:
         print("Error!")
     return rate
+
+#RESERVACIONES
+def getReserves():
+    try:
+        reserves = list(ReserveCollection.find())
+    except:
+        reserves = []
+    return reserves
+
+

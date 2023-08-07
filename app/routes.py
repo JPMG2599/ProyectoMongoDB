@@ -8,6 +8,7 @@ from flask import Blueprint, render_template, request, session, redirect, url_fo
 from .MongoQueries import isUser, getUsers, inserOneUser, getProfilePic, getUserByEmail, getBooks, getRole, insertBook, getBookByID 
 from .MongoQueries import insertReserve,getNextID,insertRate, getBookByTitle, getRateByUser, deleteBookById, updateBookByID, getNextUserID, updateOneUser, insertFavGenre
 from .MongoQueries import getFavGenre, getBookByGenres, updateUserByMail
+from .MongoQueries import getReserves
 
 # Create a Blueprint object
 bp = Blueprint("main", __name__)
@@ -214,3 +215,11 @@ def forgotPassword():#COMPARANDO CON CREATE ACCOUNT
             return redirect(url_for("main.login"))
     # Sino, solo se muestra la página
     return render_template("change-password.html")
+
+@bp.route("/reservaciones")
+def reservations():
+   
+    email = session.get('userEmail')
+    profilePicture = getProfilePic(getUserByEmail(email))
+    reservations = getReserves()
+    return render_template("reserves.html", profilePicture=profilePicture, reservations=reservations) 
